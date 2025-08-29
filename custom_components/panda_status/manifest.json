@@ -1,12 +1,14 @@
 {
-  "domain": "panda_status",
-  "name": "Panda Status",
-  "codeowners": [
-    "@ludeeus"
-  ],
-  "config_flow": true,
-  "documentation": "https://github.com/ping-localhost/panda_status",
-  "iot_class": "cloud_polling",
-  "issue_tracker": "https://github.com/ping-localhost/panda_status/issues",
-  "version": "0.1.0"
+    "domain": "panda_status",
+    "name": "Panda Status (BigTreeTech)",
+    "version": "1.0",
+    "requirements": [
+        "websockets"
+    ],
+    "codeowners": [
+        "@ping-localhost"
+    ],
+    "config_flow": true,
+    "documentation": "https://github.com/ping-localhost/panda_status",
+    "issue_tracker": "https://github.com/ping-localhost/panda_status/issues"
 }

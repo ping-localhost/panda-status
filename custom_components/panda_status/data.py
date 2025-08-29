@@ -9,17 +9,17 @@ if TYPE_CHECKING:
     from homeassistant.config_entries import ConfigEntry
     from homeassistant.loader import Integration
 
-    from .api import IntegrationBlueprintApiClient
-    from .coordinator import BlueprintDataUpdateCoordinator
+    from .coordinator import PandaStatusDataUpdateCoordinator
+    from .websocket import PandaStatusWebSocket
 
 
-type IntegrationBlueprintConfigEntry = ConfigEntry[IntegrationBlueprintData]
+type PandaStatusConfigEntry = ConfigEntry[PandaStatusData]
 
 
 @dataclass
-class IntegrationBlueprintData:
-    """Data for the Blueprint integration."""
+class PandaStatusData:
+    """Data for the PandaStatus integration."""
 
-    client: IntegrationBlueprintApiClient
-    coordinator: BlueprintDataUpdateCoordinator
+    client: PandaStatusWebSocket
+    coordinator: PandaStatusDataUpdateCoordinator
     integration: Integration

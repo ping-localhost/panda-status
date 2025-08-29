@@ -4,13 +4,11 @@
             "user": {
                 "description": "If you need help with the configuration have a look here: https://github.com/ping-localhost/panda_status",
                 "data": {
-                    "username": "Username",
-                    "password": "Password"
+                    "url": "URL"
                 }
             }
         },
         "error": {
-            "auth": "Username/Password is wrong.",
             "connection": "Unable to connect to the server.",
             "unknown": "Unknown error occurred."
         },

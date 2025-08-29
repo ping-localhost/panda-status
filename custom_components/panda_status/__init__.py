@@ -7,26 +7,23 @@ https://github.com/ping-localhost/panda_status
 
 from __future__ import annotations
 
-from datetime import timedelta
 from typing import TYPE_CHECKING
 
-from homeassistant.const import CONF_PASSWORD, CONF_USERNAME, Platform
-from homeassistant.helpers.aiohttp_client import async_get_clientsession
+from homeassistant.const import CONF_URL, Platform
 from homeassistant.loader import async_get_loaded_integration
 
-from .api import IntegrationBlueprintApiClient
 from .const import DOMAIN, LOGGER
-from .coordinator import BlueprintDataUpdateCoordinator
-from .data import IntegrationBlueprintData
+from .coordinator import PandaStatusDataUpdateCoordinator
+from .data import PandaStatusData
+from .websocket import PandaStatusWebSocket
 
 if TYPE_CHECKING:
     from homeassistant.core import HomeAssistant
 
-    from .data import IntegrationBlueprintConfigEntry
+    from .data import PandaStatusConfigEntry
 
 PLATFORMS: list[Platform] = [
     Platform.SENSOR,
-    Platform.BINARY_SENSOR,
     Platform.SWITCH,
 ]
 
@@ -34,21 +31,16 @@ PLATFORMS: list[Platform] = [
 # https://developers.home-assistant.io/docs/config_entries_index/#setting-up-an-entry
 async def async_setup_entry(
     hass: HomeAssistant,
-    entry: IntegrationBlueprintConfigEntry,
+    entry: PandaStatusConfigEntry,
 ) -> bool:
     """Set up this integration using UI."""
-    coordinator = BlueprintDataUpdateCoordinator(
+    coordinator = PandaStatusDataUpdateCoordinator(
         hass=hass,
         logger=LOGGER,
         name=DOMAIN,
-        update_interval=timedelta(hours=1),
     )
-    entry.runtime_data = IntegrationBlueprintData(
-        client=IntegrationBlueprintApiClient(
-            username=entry.data[CONF_USERNAME],
-            password=entry.data[CONF_PASSWORD],
-            session=async_get_clientsession(hass),
-        ),
+    entry.runtime_data = PandaStatusData(
+        client=PandaStatusWebSocket(url=entry.data[CONF_URL], session=None),
         integration=async_get_loaded_integration(hass, entry.domain),
         coordinator=coordinator,
     )
@@ -64,7 +56,7 @@ async def async_setup_entry(
 
 async def async_unload_entry(
     hass: HomeAssistant,
-    entry: IntegrationBlueprintConfigEntry,
+    entry: PandaStatusConfigEntry,
 ) -> bool:
     """Handle removal of an entry."""
     return await hass.config_entries.async_unload_platforms(entry, PLATFORMS)
@@ -72,7 +64,7 @@ async def async_unload_entry(
 
 async def async_reload_entry(
     hass: HomeAssistant,
-    entry: IntegrationBlueprintConfigEntry,
+    entry: PandaStatusConfigEntry,
 ) -> None:
     """Reload config entry."""
     await hass.config_entries.async_reload(entry.entry_id)
