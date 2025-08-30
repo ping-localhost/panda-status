@@ -1,15 +1,15 @@
 {
-    "domain": "panda_status",
-    "name": "Panda Status (BigTreeTech)",
-    "version": "1.0",
-    "requirements": [
-        "websockets"
-    ],
-    "codeowners": [
-        "@ping-localhost"
-    ],
-    "config_flow": true,
-    "documentation": "https://github.com/ping-localhost/panda_status",
-    "issue_tracker": "https://github.com/ping-localhost/panda_status/issues",
-    "iot_class": "local_polling"
+  "domain": "panda_status",
+  "name": "Panda Status",
+  "codeowners": [
+    "@ping-localhost"
+  ],
+  "config_flow": true,
+  "documentation": "https://github.com/ping-localhost/panda_status",
+  "iot_class": "local_polling",
+  "issue_tracker": "https://github.com/ping-localhost/panda_status/issues",
+  "requirements": [
+    "websockets"
+  ],
+  "version": "1.0.0"
 }
