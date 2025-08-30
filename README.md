@@ -1,17 +1,38 @@
-# Panda Status
+<h1 align="center" style="display: block; font-size: 2.5em; font-weight: bold; margin-block-start: 1em; margin-block-end: 1em;">
+<a name="logo" href="https://www.aregtech.com"><img align="center" src="https://i.imgur.com/bo7pxoH.png" alt="Panda Status style="width:100%;height:100%"/></a>
+  <br /><br /><strong>Panda Status</strong>
+</h1>
 
-Control your BigTreeTech Panda Status via Home Assistant.
+_Control your BigTreeTech Panda Status via Home Assistant_
 
-## What?
+[![HACS](https://img.shields.io/badge/HACS-Custom-orange.svg?style=for-the-badge)](https://github.com/hacs/integration)
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/ping-localhost/panda-status?style=for-the-badge)
+![GitHub Release Date](https://img.shields.io/github/release-date/ping-localhost/panda-status?style=for-the-badge)
 
-This repository contains multiple files, here is a overview:
+---
 
-File | Purpose | Documentation
--- | -- | --
-`.devcontainer.json` | Used for development/testing with Visual Studio Code. | [Documentation](https://code.visualstudio.com/docs/remote/containers)
-`.github/ISSUE_TEMPLATE/*.yml` | Templates for the issue tracker | [Documentation](https://help.github.com/en/github/building-a-strong-community/configuring-issue-templates-for-your-repository)
-`custom_components/panda_status/*` | Integration files, this is where everything happens. | [Documentation](https://developers.home-assistant.io/docs/creating_component_index)
-`CONTRIBUTING.md` | Guidelines on how to contribute. | [Documentation](https://help.github.com/en/github/building-a-strong-community/setting-guidelines-for-repository-contributors)
-`LICENSE` | The license file for the project. | [Documentation](https://help.github.com/en/github/creating-cloning-and-archiving-repositories/licensing-a-repository)
-`README.md` | The file you are reading now, should contain info about the integration, installation and configuration instructions. | [Documentation](https://help.github.com/en/github/writing-on-github/basic-writing-and-formatting-syntax)
-`requirements.txt` | Python packages used for development/lint/testing this integration. | [Documentation](https://pip.pypa.io/en/stable/user_guide/#requirements-files)
+<!-- markdownlint-disable -->
+## Project Status[![](https://raw.githubusercontent.com/ping-localhost/panda-status/master/docs/img/pin.svg)](#project-status)
+
+<table class="no-border">
+  <tr>
+    <td><a href="https://github.com/ping-localhost/panda-status/actions/workflows/lint.yml" alt="lint"><img src="https://github.com/ping-localhost/panda-status/actions/workflows/lint.yml/badge.svg" alt="lint build"/></a></td>
+    <td><a href="https://github.com/ping-localhost/panda-status/actions/workflows/validate.yml" alt="MS Build"><img src="https://github.com/ping-localhost/panda-status/actions/workflows/validate.yml/badge.svg" alt="MS Build"/></a></td>
+  </tr>
+</table>
+
+---
+
+## Introduction
+
+This is a very simple integration that connects to the Panda Status WebSocket, parses it messages and allows you to change certain settings (currently just the idle light on/off).
+
+## Installation
+
+Recommended to be installed via [HACS](https://github.com/hacs/integration)
+
+1. Go to HACS -> Integrations
+2. [Add this repo to your HACS custom repositories](https://hacs.xyz/docs/faq/custom_repositories)
+3. Search for `Panda Status` and install.
+4. Restart Home Assistant
+5. Setup via the configuration flow (YAML is not supported)
