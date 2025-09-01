@@ -5,7 +5,13 @@ from __future__ import annotations
 import logging
 from typing import TYPE_CHECKING, Any
 
-from homeassistant.components.sensor import SensorEntity, SensorEntityDescription
+from homeassistant.components.sensor import (
+    SensorEntity,
+    SensorEntityDescription,
+)
+from homeassistant.const import EntityCategory
+
+from custom_components.panda_status import tools
 
 from .entity import PandaStatusEntity
 
@@ -18,33 +24,57 @@ if TYPE_CHECKING:
 
 _LOGGER = logging.getLogger(__name__)
 
-SENSOR_MAP = {
-    "sta.ip": "Device IP",
-    "sta.hostname": "Hostname",
-    "sta.state": "WiFi State",
-    "printer.name": "Printer Name",
-    "printer.ip": "Printer IP",
-    "printer.state": "Printer State",
-    "settings.fw_version": "Firmware Version",
-    "settings.language": "Language",
-}
 
-ENTITY_DESCRIPTIONS = tuple(
+ENTITY_DESCRIPTIONS = (
     SensorEntityDescription(
-        key=key,
-        name=f"Panda {name}",
+        key="ap.ssid",
+        name="AP SSID",
+        icon="mdi:wifi",
+        entity_category=EntityCategory.DIAGNOSTIC,
+    ),
+    SensorEntityDescription(
+        key="sta.ip",
+        name="Device IP",
+        icon="mdi:ip-network",
+        entity_category=EntityCategory.DIAGNOSTIC,
+    ),
+    SensorEntityDescription(
+        key="sta.hostname",
+        name="Hostname",
+        icon="mdi:server-network",
+        entity_category=EntityCategory.DIAGNOSTIC,
+    ),
+    SensorEntityDescription(
+        key="sta.state",
+        name="WiFi State",
         icon="mdi:information-outline",
-    )
-    for key, name in SENSOR_MAP.items()
+        entity_category=EntityCategory.DIAGNOSTIC,
+    ),
+    SensorEntityDescription(
+        key="printer.name",
+        name="Printer Name",
+        icon="mdi:printer",
+        entity_category=EntityCategory.DIAGNOSTIC,
+    ),
+    SensorEntityDescription(
+        key="printer.ip",
+        name="Printer IP",
+        icon="mdi:ip-network-outline",
+        entity_category=EntityCategory.DIAGNOSTIC,
+    ),
+    SensorEntityDescription(
+        key="printer.state",
+        name="Printer State",
+        icon="mdi:printer-alert",
+        entity_category=EntityCategory.DIAGNOSTIC,
+    ),
+    SensorEntityDescription(
+        key="settings.fw_version",
+        name="Firmware Version",
+        icon="mdi:chip",
+        entity_category=EntityCategory.DIAGNOSTIC,
+    ),
 )
-
-
-def _extract_value(data: dict, dotted_key: str) -> Any:
-    """Extract nested JSON value using dotted path."""
-    for part in dotted_key.split("."):
-        data = data[part]
-
-    return data
 
 
 async def async_setup_entry(
@@ -79,4 +109,4 @@ class PandaStatusSensor(PandaStatusEntity, SensorEntity):
     @property
     def native_value(self) -> Any:
         """Return the state of the sensor."""
-        return _extract_value(self.coordinator.data, self.entity_description.key)
+        return tools.extract_value(self.coordinator.data, self.entity_description.key)

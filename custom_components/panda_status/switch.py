@@ -5,8 +5,15 @@ from __future__ import annotations
 import logging
 from typing import TYPE_CHECKING, Any
 
-from homeassistant.components.switch import SwitchEntity, SwitchEntityDescription
+from homeassistant.components.switch import (
+    SwitchDeviceClass,
+    SwitchEntity,
+    SwitchEntityDescription,
+)
+from homeassistant.const import EntityCategory
 from homeassistant.core import callback
+
+from custom_components.panda_status import tools
 
 from .entity import PandaStatusEntity
 
@@ -29,16 +36,70 @@ async def async_setup_entry(
     coordinator = entry.runtime_data.coordinator
     async_add_entities(
         [
+            PandaStatusAPSwitch(
+                coordinator=coordinator,
+                entity_description=SwitchEntityDescription(
+                    key="ap",
+                    name="AP Enabled",
+                    icon="mdi:toggle-switch",
+                    entity_category=EntityCategory.CONFIG,
+                    device_class=SwitchDeviceClass.SWITCH,
+                ),
+            ),
             PandaStatusRGBIdleSwitch(
                 coordinator=coordinator,
                 entity_description=SwitchEntityDescription(
                     key="rgb_idle_light",
-                    name="RGB Idle Light Switch",
+                    name="RGB Idle Light",
                     icon="mdi:lightbulb",
+                    entity_category=EntityCategory.CONFIG,
+                    device_class=SwitchDeviceClass.SWITCH,
                 ),
-            )
+            ),
         ]
     )
+
+
+class PandaStatusAPSwitch(PandaStatusEntity, SwitchEntity):
+    """Representation of the AP Switch."""
+
+    def __init__(
+        self,
+        coordinator: PandaStatusDataUpdateCoordinator,
+        entity_description: SwitchEntityDescription,
+    ) -> None:
+        """
+        Initialize the AP Switch entity.
+
+        Args:
+            coordinator: The data update coordinator for panda_status.
+            entity_description: Description of the switch entity.
+
+        """
+        super().__init__(coordinator, entity_description)
+        self.entity_description = entity_description
+        self._attr_is_on = self._get_state_from_data()
+
+    def _get_state_from_data(self) -> bool | None:
+        """Get the current state from coordinator data."""
+        last_msg = tools.extract_value(self.coordinator.data, "ap.on")
+        if last_msg is not None:
+            return last_msg == 1
+        return None
+
+    async def async_turn_on(self, **kwargs: Any) -> None:  # noqa: ARG002
+        """Turn on the AP."""
+        await self.coordinator.config_entry.runtime_data.client.async_send(
+            '{"ap":{"on":1}}'
+        )
+        await self.coordinator.async_request_refresh()
+
+    async def async_turn_off(self, **kwargs: Any) -> None:  # noqa: ARG002
+        """Turn off the AP."""
+        await self.coordinator.config_entry.runtime_data.client.async_send(
+            '{"ap":{"on":0}}'
+        )
+        await self.coordinator.async_request_refresh()
 
 
 class PandaStatusRGBIdleSwitch(PandaStatusEntity, SwitchEntity):
