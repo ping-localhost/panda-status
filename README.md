@@ -1,5 +1,5 @@
 <h1 align="center" style="display: block; font-size: 2.5em; font-weight: bold; margin-block-start: 1em; margin-block-end: 1em;">
-<a name="logo" href="https://www.aregtech.com"><img align="center" src="https://i.imgur.com/bo7pxoH.png" alt="Panda Status style="width:100%;height:100%"/></a>
+<a name="logo" href="https://github.com/ping-localhost/panda-status"><img align="center" src="https://i.imgur.com/bo7pxoH.png" alt="Panda Status" style="width:100%;height:100%"/></a>
   <br /><br /><strong>Panda Status</strong>
 </h1>
 
@@ -11,10 +11,15 @@ _Control your BigTreeTech Panda Status via Home Assistant_
 
 ---
 
-<!-- markdownlint-disable -->
-## Project Status[![](https://raw.githubusercontent.com/ping-localhost/panda-status/master/docs/img/pin.svg)](#project-status)
+## Overview
 
-<table class="no-border">
+**Panda Status** is a Home Assistant custom integration for monitoring and controlling your BigTreeTech Panda Status device. It connects via WebSocket, parses messages, and exposes device data and controls to Home Assistant.
+
+---
+
+## Project Status
+
+<table>
   <tr>
     <td><a href="https://github.com/ping-localhost/panda-status/actions/workflows/lint.yml" alt="lint"><img src="https://github.com/ping-localhost/panda-status/actions/workflows/lint.yml/badge.svg" alt="lint build"/></a></td>
     <td><a href="https://github.com/ping-localhost/panda-status/actions/workflows/validate.yml" alt="MS Build"><img src="https://github.com/ping-localhost/panda-status/actions/workflows/validate.yml/badge.svg" alt="MS Build"/></a></td>
@@ -23,16 +28,46 @@ _Control your BigTreeTech Panda Status via Home Assistant_
 
 ---
 
-## Introduction
+## Features
 
-This is a very simple integration that connects to the Panda Status WebSocket, parses it messages and allows you to change certain settings (currently just the idle light on/off).
+### Sensors
+
+- **WiFi AP SSID**: Shows the SSID of the device's WiFi access point.
+- **Device IP address**: Displays the IP address of the Panda Status device.
+- **Device hostname**: Shows the hostname.
+- **WiFi connection state**: Indicates connection status.
+- **Printer name**: Displays the connected printer's name.
+- **Printer IP address**: Shows the printer's IP.
+- **Printer state**: Indicates printer status.
+- **Firmware version**: Shows the firmware version.
+
+### Switches
+
+- **Enable/disable WiFi AP**
+- **Enable/disable RGB Idle Light**
 
 ## Installation
 
-Recommended to be installed via [HACS](https://github.com/hacs/integration)
+**Recommended:** Install via [HACS](https://hacs.xyz/)
 
-1. Go to HACS -> Integrations
-2. [Add this repo to your HACS custom repositories](https://hacs.xyz/docs/faq/custom_repositories)
+1. Go to HACS → Integrations.
+2. [Add this repo to your HACS custom repositories](https://hacs.xyz/docs/faq/custom_repositories).
 3. Search for `Panda Status` and install.
-4. Restart Home Assistant
-5. Setup via the configuration flow (YAML is not supported)
+4. Restart Home Assistant.
+5. Set up via the configuration flow (YAML is not supported).
+
+## Configuration
+
+After installation, add the integration via Home Assistant UI:
+
+1. Go to **Settings → Devices & Services**.
+2. Click **Add Integration** and search for `Panda Status`.
+3. Follow the setup prompts.
+
+## Support & Issues
+
+For issues or feature requests, open an [issue on GitHub](https://github.com/ping-localhost/panda-status/issues).
+
+## License
+
+Distributed under the MIT License. See [LICENSE](LICENSE) for details.
