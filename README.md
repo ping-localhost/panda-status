@@ -38,13 +38,19 @@ _Control your BigTreeTech Panda Status via Home Assistant_
 - **WiFi connection state**: Indicates connection status.
 - **Printer name**: Displays the connected printer's name.
 - **Printer IP address**: Shows the printer's IP.
+- **Printer S/N**: Shows the printer's Serial Number.
 - **Printer state**: Indicates printer status.
 - **Firmware version**: Shows the firmware version.
 
 ### Switches
 
-- **Enable/disable WiFi AP**
-- **Enable/disable RGB Idle Light**
+- **WiFi AP** - Allows you to enable/disable the AP.
+- **RGB Idle Light** - Allows you enable/disable the idle light
+  - It just sets the brightness to 0% or 100%.
+
+### Select Entities
+
+- **Light effect mode**: Lets you swap from mode on the fly (Music/H2D style).
 
 ## Installation
 

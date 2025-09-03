@@ -1,10 +1,11 @@
-"""Switch platform for panda_status."""
+"""Switch platform for Panda Status integration."""
 
 from __future__ import annotations
 
 import logging
 from typing import TYPE_CHECKING, Any
 
+from custom_components.panda_status import tools
 from homeassistant.components.switch import (
     SwitchDeviceClass,
     SwitchEntity,
@@ -12,8 +13,6 @@ from homeassistant.components.switch import (
 )
 from homeassistant.const import EntityCategory
 from homeassistant.core import callback
-
-from custom_components.panda_status import tools
 
 from .entity import PandaStatusEntity
 

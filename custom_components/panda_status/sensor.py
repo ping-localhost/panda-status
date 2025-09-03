@@ -1,17 +1,13 @@
-"""Sensor platform for panda_status."""
+"""Sensor platform for Panda Status integration."""
 
 from __future__ import annotations
 
 import logging
 from typing import TYPE_CHECKING, Any
 
-from homeassistant.components.sensor import (
-    SensorEntity,
-    SensorEntityDescription,
-)
-from homeassistant.const import EntityCategory
-
 from custom_components.panda_status import tools
+from homeassistant.components.sensor import SensorEntity, SensorEntityDescription
+from homeassistant.const import EntityCategory
 
 from .entity import PandaStatusEntity
 
@@ -57,6 +53,12 @@ ENTITY_DESCRIPTIONS = (
         entity_category=EntityCategory.DIAGNOSTIC,
     ),
     SensorEntityDescription(
+        key="printer.sn",
+        name="Printer S/N",
+        icon="mdi:numeric",
+        entity_category=EntityCategory.DIAGNOSTIC,
+    ),
+    SensorEntityDescription(
         key="printer.ip",
         name="Printer IP",
         icon="mdi:ip-network-outline",
@@ -66,12 +68,6 @@ ENTITY_DESCRIPTIONS = (
         key="printer.state",
         name="Printer State",
         icon="mdi:printer-alert",
-        entity_category=EntityCategory.DIAGNOSTIC,
-    ),
-    SensorEntityDescription(
-        key="settings.fw_version",
-        name="Firmware Version",
-        icon="mdi:chip",
         entity_category=EntityCategory.DIAGNOSTIC,
     ),
 )
