@@ -4,7 +4,8 @@
             "user": {
                 "description": "If you need help with the configuration have a look here: https://github.com/ping-localhost/panda_status",
                 "data": {
-                    "url": "URL"
+                    "url": "URL",
+                    "name": "Name for the device (optional)"
                 }
             }
         },
