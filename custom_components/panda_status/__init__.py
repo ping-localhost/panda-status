@@ -10,7 +10,6 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 from homeassistant.const import CONF_URL, Platform
-from homeassistant.loader import async_get_loaded_integration
 
 from .const import DOMAIN, LOGGER
 from .coordinator import PandaStatusDataUpdateCoordinator
@@ -41,7 +40,6 @@ async def async_setup_entry(
     )
     entry.runtime_data = PandaStatusData(
         client=PandaStatusWebSocket(url=entry.data[CONF_URL], session=None),
-        integration=async_get_loaded_integration(hass, entry.domain),
         coordinator=coordinator,
     )
 
