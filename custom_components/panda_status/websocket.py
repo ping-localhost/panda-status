@@ -2,10 +2,10 @@
 
 from __future__ import annotations
 
+import asyncio
 import json
 import logging
 
-import async_timeout
 from websockets.asyncio.client import ClientConnection, connect
 from websockets.exceptions import ConnectionClosed
 
@@ -86,7 +86,7 @@ class PandaStatusWebSocket:
         """
         try:
             _LOGGER.debug("Sending payload: %s", payload)
-            async with async_timeout.timeout(1) and self._session as websocket:
+            async with asyncio.timeout(1) and self._session as websocket:
                 await websocket.send(payload)
                 _LOGGER.debug("Payload sent: %s", payload)
         except TimeoutError as e:
