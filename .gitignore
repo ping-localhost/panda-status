@@ -2,9 +2,9 @@
 __pycache__
 .pytest*
 *.egg-info
+*/.venv/*
 */build/*
 */dist/*
-
 
 # misc
 .coverage
