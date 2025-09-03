@@ -1,6 +1,7 @@
 # The contents of this file is based on https://github.com/home-assistant/core/blob/dev/pyproject.toml
 
 target-version = "py313"
+required-version = ">=0.12.1"
 
 [lint]
 select = [
@@ -11,15 +12,32 @@ ignore = [
     "ANN401", # Dynamically typed expressions (typing.Any) are disallowed
     "D203", # no-blank-line-before-class (incompatible with formatter)
     "D212", # multi-line-summary-first-line (incompatible with formatter)
+    "EXE002", # incompatible with Windows
     "COM812", # incompatible with formatter
     "ISC001", # incompatible with formatter
 ]
 
 [lint.flake8-pytest-style]
 fixture-parentheses = false
+mark-parentheses = false
+
+[lint.flake8-tidy-imports.banned-api]
+"async_timeout".msg = "use asyncio.timeout instead"
+"pytz".msg = "use zoneinfo instead"
+"tests".msg = "You should not import tests"
+
+[lint.isort]
+force-sort-within-sections = true
+known-first-party = ["homeassistant"]
+combine-as-imports = true
+split-on-trailing-comma = false
 
 [lint.pyupgrade]
 keep-runtime-typing = true
+
+[lint.pydocstyle]
+convention = "google"
+property-decorators = ["propcache.api.cached_property"]
 
 [lint.mccabe]
 max-complexity = 25
