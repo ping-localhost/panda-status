@@ -2,6 +2,8 @@
 
 from typing import Any
 
+from custom_components.panda_status import PandaStatusWebSocket
+
 
 def extract_value(data: dict, dotted_key: str) -> Any:
     """Extract nested JSON value using dotted path."""
@@ -22,3 +24,9 @@ def get_printer_name(initial_data: dict) -> str:
 def get_device_name(initial_data: dict) -> str:
     """Get device name from initial data."""
     return f"{extract_value(initial_data, 'printer.name')} - Panda Status"
+
+
+async def test_credentials(url: str) -> dict:
+    """Validate credentials."""
+    client = PandaStatusWebSocket(url=url, session=None)
+    return await client.async_get_data()
