@@ -1,0 +1,20 @@
+[project]
+name = "panda_status"
+version = "1.2.0"
+requires-python = ">=3.13.2"
+dependencies = [
+    "colorlog>=6.9.0",
+    "hassil>=3.2.0",
+    "home-assistant-intents==2025.8.29",
+    "homeassistant==2025.8.1",
+    "mutagen>=1.47.0",
+    "numpy>=2.3.2",
+    "pip>=25.2",
+    "ruff>=0.12.12",
+    "websockets>=15.0.1",
+]
+
+[dependency-groups]
+dev = [
+    "ruff>=0.12.12"
+]

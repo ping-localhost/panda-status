@@ -1,14 +1,23 @@
-"""System Health platform for panda_status custom component."""
+"""System health platform for the Panda Status custom component."""
 
-from typing import TYPE_CHECKING, Any
+from __future__ import annotations
 
-from custom_components.panda_status.const import DOMAIN
-from homeassistant.components import system_health
+import logging
+from typing import TYPE_CHECKING, Any, cast
+
 from homeassistant.const import CONF_URL
 from homeassistant.core import HomeAssistant, callback
 
+from . import tools
+from .const import DOMAIN
+from .websocket import PandaStatusWebsocketError, PandaStatusWebsocketTimeoutError
+
 if TYPE_CHECKING:
+    from homeassistant.components import system_health
+
     from .data import PandaStatusConfigEntry
+
+_LOGGER = logging.getLogger(__name__)
 
 
 @callback
@@ -21,11 +30,30 @@ def async_register(
 
 
 async def system_health_info(hass: HomeAssistant) -> dict[str, Any]:
-    """Get info for the info page."""
-    config_entry: PandaStatusConfigEntry = hass.config_entries.async_entries(DOMAIN)[0]
+    """Return system-health information for the Panda Status integration."""
+    # Grab the first config entry for this integration.
+    # If none are present we report nothing.
+    config_entries = hass.config_entries.async_entries(DOMAIN)
+    if not config_entries:
+        _LOGGER.warning("No %s config entries found", DOMAIN)
+        return {}
 
-    return {
-        "can_reach_server": system_health.async_check_can_reach_url(
-            hass, config_entry.data[CONF_URL]
-        ),
-    }
+    config_entry: PandaStatusConfigEntry = cast(
+        "PandaStatusConfigEntry", config_entries[0]
+    )
+
+    url = config_entry.data.get(CONF_URL)
+    if not url:
+        _LOGGER.warning("Config entry for %s does not contain a URL", DOMAIN)
+        return {"websocket_reachable": "Missing URL"}
+
+    try:
+        await tools.test_credentials(url)
+    except (TimeoutError, PandaStatusWebsocketTimeoutError):
+        data = "timeout"
+    except (Exception, PandaStatusWebsocketError):  # noqa: BLE001
+        data = "unreachable"
+    else:
+        data = "ok"
+
+    return {"websocket_reachable": data}

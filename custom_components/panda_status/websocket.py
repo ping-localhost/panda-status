@@ -7,13 +7,19 @@ import json
 import logging
 
 from websockets.asyncio.client import ClientConnection, connect
-from websockets.exceptions import ConnectionClosed
+from websockets.exceptions import ConnectionClosed, InvalidStatus
 
 _LOGGER = logging.getLogger(__name__)
 
 
 class PandaStatusWebsocketError(Exception):
     """Exception to indicate a general WebSocket error."""
+
+
+class PandaStatusWebsocketTimeoutError(
+    PandaStatusWebsocketError,
+):
+    """Exception to indicate a timeout error."""
 
 
 class PandaStatusWebsocketCommunicationError(
@@ -55,18 +61,18 @@ class PandaStatusWebSocket:
             PandaStatusWebsocketError: If JSON is invalid or connection fails.
 
         """
-        async with self._session as websocket:
-            try:
+        try:
+            async with self._session as websocket:
                 data = json.loads(await websocket.recv())
-            except TimeoutError as e:
-                msg = f"Timeout error getting data - {e}"
-                raise PandaStatusWebsocketCommunicationError(msg) from e
-            except (OSError, ConnectionClosed, TypeError) as e:
-                msg = f"Communication error - {e}"
-                raise PandaStatusWebsocketCommunicationError(msg) from e
-            except Exception as e:
-                msg = f"Unexpected error parsing data payload - {e}"
-                raise PandaStatusWebsocketError(msg) from e
+        except TimeoutError as e:
+            msg = f"Timeout error getting data - {e}"
+            raise PandaStatusWebsocketTimeoutError(msg) from e
+        except (OSError, ConnectionClosed, TypeError, InvalidStatus) as e:
+            msg = f"Communication error - {e}"
+            raise PandaStatusWebsocketCommunicationError(msg) from e
+        except Exception as e:
+            msg = f"Unexpected error parsing data payload - {e}"
+            raise PandaStatusWebsocketError(msg) from e
 
         _LOGGER.debug("Latest data received: %s", json.dumps(data))
 

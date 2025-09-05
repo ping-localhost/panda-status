@@ -1,25 +1,40 @@
 {
-    "config": {
-        "step": {
-            "user": {
-                "description": "If you need help with the configuration have a look here: https://github.com/ping-localhost/panda_status",
-                "data": {
-                    "url": "URL",
-                    "name": "Name for the device (optional)"
-                }
-            }
-        },
-        "error": {
-            "connection": "Unable to connect to the server.",
-            "unknown": "Unknown error occurred."
-        },
-        "abort": {
-            "already_configured": "This entry is already configured."
+  "config": {
+    "step": {
+      "user": {
+        "description": "If you need help with the configuration have a look here: https://github.com/ping-localhost/panda_status",
+        "data": {
+          "url": "URL",
+          "name": "Name for the device (optional)"
         }
+      }
     },
-    "system_health": {
-        "info": {
-            "can_reach_server": "WebSocket reachable"
-        }
+    "error": {
+      "connection": "Unable to connect to the server.",
+      "unknown": "Unknown error occurred."
+    },
+    "abort": {
+      "already_configured": "This entry is already configured."
     }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "description": "If you need help with the configuration have a look here: https://github.com/ping-localhost/panda_status",
+        "data": {
+          "url": "URL",
+          "name": "Name for the device (optional)"
+        }
+      }
+    },
+    "error": {
+      "connection": "Unable to connect to the server.",
+      "unknown": "Unknown error occurred."
+    }
+  },
+  "system_health": {
+    "info": {
+      "websocket_reachable": "WebSocket reachable"
+    }
+  }
 }
