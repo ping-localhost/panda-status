@@ -4,17 +4,21 @@ set -e
 
 cd "$(dirname "$0")/.."
 
+echo "🐼 [develop] Starting Home Assistant development environment in $(pwd)"
+
 # Create config dir if not present
 if [[ ! -d "${PWD}/config" ]]; then
+    echo "📁 [develop] Creating config directory..."
     mkdir -p "${PWD}/config"
-    hass --config "${PWD}/config" --script ensure_config
+    echo "⚙️ [develop] Ensuring Home Assistant config..."
+    uv run hass --config "${PWD}/config" --script ensure_config
+    echo "✅ [develop] Config directory ready."
 fi
 
 # Set the path to custom_components
-## This let's us have the structure we want <root>/custom_components/panda_status
-## while at the same time have Home Assistant configuration inside <root>/config
-## without resulting to symlinks.
+echo "🔧 [develop] Setting PYTHONPATH for custom_components..."
 export PYTHONPATH="${PYTHONPATH}:${PWD}/custom_components"
 
 # Start Home Assistant
-hass --config "${PWD}/config" --debug
+echo "🚀 [develop] Starting Home Assistant with debug mode..."
+uv run hass --config "${PWD}/config" --debug

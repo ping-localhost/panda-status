@@ -4,4 +4,29 @@ set -e
 
 cd "$(dirname "$0")/.."
 
-uv venv && uv pip install -r pyproject.toml
+echo "🐼 [setup] Starting setup in $(pwd)"
+
+# Download UV if not present
+if ! command -v uv >/dev/null 2>&1; then
+    echo "🔍 [setup] 'uv' not found. Installing UV..."
+    curl -LsSf https://astral.sh/uv/install.sh | sh
+    echo "✅ [setup] UV installed."
+else
+    echo "✅ [setup] 'uv' is already installed."
+fi
+
+# Create venv if not present
+if [[ ! -d "${PWD}/.venv" ]]; then
+    echo "🔧 [setup] Creating Python virtual environment (.venv)..."
+    uv venv
+    echo "✅ [setup] Virtual environment created."
+else
+    echo "✅ [setup] Virtual environment already exists."
+fi
+
+# Install dependencies
+echo "📦 [setup] Installing dependencies with uv..."
+uv sync --dev --frozen --link-mode=copy
+echo "✅ [setup] Dependencies installed."
+
+echo "🎉 [setup] Setup complete."

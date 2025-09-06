@@ -3,18 +3,21 @@ name = "panda_status"
 version = "1.2.0"
 requires-python = ">=3.13.2"
 dependencies = [
-    "colorlog>=6.9.0",
-    "hassil>=3.2.0",
+    "colorlog",
+    "ffmpeg",
+    "ha-ffmpeg",
+    "hassil",
     "home-assistant-intents==2025.9.3",
     "homeassistant==2025.8.1",
-    "mutagen>=1.47.0",
-    "numpy>=2.3.2",
+    "mutagen",
+    "numpy",
     "pip>=25.2",
+    "pip>=25.2",
+    "pymicro-vad",
+    "pyspeex-noise",
+    "PyTurboJPEG",
     "ruff>=0.12.12",
-    "websockets>=15.0.1",
-]
-
-[dependency-groups]
-dev = [
-    "ruff>=0.12.12"
+    "ruff>=0.12.12",
+    "websockets",
+    "websockets",
 ]

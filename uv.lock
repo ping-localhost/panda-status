@@ -1,5 +1,5 @@
 version = 1
-revision = 2
+revision = 3
 requires-python = ">=3.13.2"
 
 [[package]]
@@ -744,6 +744,18 @@ wheels = [
 ]
 
 [[package]]
+name = "ha-ffmpeg"
+version = "3.2.2"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "async-timeout" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/1e/3b/bd1284a9bc39cc119b0da551a81be6cf30dc3cfb369ce8c62fb648d7a2ea/ha_ffmpeg-3.2.2.tar.gz", hash = "sha256:80e4a77b3eda73df456ec9cc3295a898ed7cbb8cd2d59798f10e8c10a8e6c401", size = 7608, upload-time = "2024-11-08T13:32:14.181Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/45/66/7863e5a3713bb71c02f050f14a751b02e7a2d50eaf2109c96a1202e65d8b/ha_ffmpeg-3.2.2-py3-none-any.whl", hash = "sha256:4fd4a4f4cdaf3243d2737942f3f41f141e4437d2af1167655815dc03283b1652", size = 8749, upload-time = "2024-11-08T13:32:12.69Z" },
+]
+
+[[package]]
 name = "habluetooth"
 version = "5.3.0"
 source = { registry = "https://pypi.org/simple" }
@@ -840,11 +852,11 @@ wheels = [
 
 [[package]]
 name = "home-assistant-intents"
-version = "2025.8.29"
+version = "2025.9.3"
 source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/04/cb/cece4dd57794e750735bd2bce7a37686221a3dca8cdb04db69c8c4fe29b7/home_assistant_intents-2025.8.29.tar.gz", hash = "sha256:800453450d23d1e18fef19098d66f9ed671b87f6c7eae5b3fda0d8ab84243ee2", size = 2764303, upload-time = "2025-08-29T20:28:47.941Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/c4/61/eb71ff8fd24ae422a6e1f563e62aad668b1bbf1e1840193333ae7393f413/home_assistant_intents-2025.9.3.tar.gz", hash = "sha256:20a562bb88e94d5c443e37f6087c2f46a68f00d4e4a3ff06bfb58dd7f82f1b8a", size = 2781766, upload-time = "2025-09-03T14:04:05.744Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/f1/44/1e1175e1284bf5cb9f9b3e0ca11b8a8d89df9ac79394284e43e5de41a2b8/home_assistant_intents-2025.8.29-py3-none-any.whl", hash = "sha256:29bf734dd4b70fc55e0cdd8eed12b720157acc0e6d2802550c37f4cb9628222c", size = 2792193, upload-time = "2025-08-29T20:28:46.342Z" },
+    { url = "https://files.pythonhosted.org/packages/31/9e/8dafd87640ce0733ec01f32a4603b4e3464ad3600a166c5dd24d7fc5495b/home_assistant_intents-2025.9.3-py3-none-any.whl", hash = "sha256:d0e56008a002a0e70f67185c290b687a0128e7b76bfcfea8abc19bdec94721b4", size = 2810304, upload-time = "2025-09-03T14:04:04.027Z" },
 ]
 
 [[package]]
@@ -1189,6 +1201,7 @@ source = { virtual = "." }
 dependencies = [
     { name = "colorlog" },
     { name = "ffmpeg" },
+    { name = "ha-ffmpeg" },
     { name = "hassil" },
     { name = "home-assistant-intents" },
     { name = "homeassistant" },
@@ -1202,30 +1215,23 @@ dependencies = [
     { name = "websockets" },
 ]
 
-[package.dev-dependencies]
-dev = [
-    { name = "ruff" },
-]
-
 [package.metadata]
 requires-dist = [
-    { name = "colorlog", specifier = ">=6.9.0" },
-    { name = "ffmpeg", specifier = ">=1.4" },
-    { name = "hassil", specifier = ">=3.2.0" },
-    { name = "home-assistant-intents", specifier = "==2025.8.29" },
+    { name = "colorlog" },
+    { name = "ffmpeg" },
+    { name = "ha-ffmpeg" },
+    { name = "hassil" },
+    { name = "home-assistant-intents", specifier = "==2025.9.3" },
     { name = "homeassistant", specifier = "==2025.8.1" },
-    { name = "mutagen", specifier = ">=1.47.0" },
-    { name = "numpy", specifier = ">=2.3.2" },
+    { name = "mutagen" },
+    { name = "numpy" },
     { name = "pip", specifier = ">=25.2" },
-    { name = "pymicro-vad", specifier = ">=1.0.2" },
-    { name = "pyspeex-noise", specifier = ">=1.0.2" },
-    { name = "pyturbojpeg", specifier = ">=1.8.2" },
+    { name = "pymicro-vad" },
+    { name = "pyspeex-noise" },
+    { name = "pyturbojpeg" },
     { name = "ruff", specifier = ">=0.12.12" },
-    { name = "websockets", specifier = ">=15.0.1" },
+    { name = "websockets" },
 ]
-
-[package.metadata.requires-dev]
-dev = [{ name = "ruff", specifier = ">=0.12.12" }]
 
 [[package]]
 name = "pillow"
