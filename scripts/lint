@@ -4,5 +4,15 @@ set -e
 
 cd "$(dirname "$0")/.."
 
-ruff format .
-ruff check . --fix
+echo "🐼 [lint] Starting linting in $(pwd)"
+
+# Run ruff format and check
+echo "🧹 [lint] Running ruff format..."
+uv run ruff format .
+echo "✅ [lint] Formatting complete."
+
+echo "🔎 [lint] Running ruff check with --fix..."
+uv run ruff check . --fix
+echo "✅ [lint] Linting complete."
+
+echo "🎉 [lint] Linting finished."
