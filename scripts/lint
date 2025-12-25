@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+export UV_LINK_MODE=copy
 
 set -e
 
@@ -14,5 +15,10 @@ echo "✅ [lint] Formatting complete."
 echo "🔎 [lint] Running ruff check with --fix..."
 uv run ruff check . --fix
 echo "✅ [lint] Linting complete."
+
+# Run black
+echo "🧹 [lint] Running black..."
+uv run black ./custom_components/panda_status/
+echo "✅ [lint] Black formatting complete."
 
 echo "🎉 [lint] Linting finished."
