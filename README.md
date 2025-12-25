@@ -15,6 +15,8 @@ _Control your BigTreeTech Panda Status via Home Assistant_
 
 **Panda Status** is a Home Assistant custom integration for monitoring and controlling your BigTreeTech Panda Status device. It connects via WebSocket, parses messages, and exposes device data and controls to Home Assistant.
 
+**Tested with**: V1.0.1
+
 ---
 
 ## Project Status
@@ -77,3 +79,4 @@ For issues or feature requests, open an [issue on GitHub](https://github.com/pin
 ## License
 
 Distributed under the MIT License. See [LICENSE](LICENSE) for details.
+
