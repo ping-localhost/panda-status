@@ -71,6 +71,7 @@ After installation, add the integration via Home Assistant UI:
 1. Go to **Settings → Devices & Services**.
 2. Click **Add Integration** and search for `Panda Status`.
 3. Follow the setup prompts.
+4. The required URL has to be something like `ws://192.168.0.33/ws`.
 
 ## Support & Issues
 
@@ -79,4 +80,5 @@ For issues or feature requests, open an [issue on GitHub](https://github.com/pin
 ## License
 
 Distributed under the MIT License. See [LICENSE](LICENSE) for details.
+
 
