@@ -2,7 +2,7 @@
 Custom integration to integrate panda_status with Home Assistant.
 
 For more details about this integration, please refer to
-https://github.com/ping-localhost/panda_status
+https://github.com/ping-localhost/panda-status
 """
 
 from __future__ import annotations

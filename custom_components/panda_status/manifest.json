@@ -5,9 +5,9 @@
     "@ping-localhost"
   ],
   "config_flow": true,
-  "documentation": "https://github.com/ping-localhost/panda_status",
+  "documentation": "https://github.com/ping-localhost/panda-status",
   "iot_class": "local_polling",
-  "issue_tracker": "https://github.com/ping-localhost/panda_status/issues",
+  "issue_tracker": "https://github.com/ping-localhost/panda-status/issues",
   "requirements": [
     "websockets"
   ],
