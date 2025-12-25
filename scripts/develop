@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+export UV_LINK_MODE=copy
 
 set -e
 

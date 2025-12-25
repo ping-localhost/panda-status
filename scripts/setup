@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+export UV_LINK_MODE=copy
 
 set -e
 
@@ -24,9 +25,14 @@ else
     echo "✅ [setup] Virtual environment already exists."
 fi
 
+# Enable venv
+echo "🔌 [setup] Activating virtual environment..."
+source "${PWD}/.venv/bin/activate"
+echo "✅ [setup] Virtual environment activated."
+
 # Install dependencies
 echo "📦 [setup] Installing dependencies with uv..."
-uv sync --dev --frozen --link-mode=copy
+uv sync --dev --frozen
 echo "✅ [setup] Dependencies installed."
 
 echo "🎉 [setup] Setup complete."

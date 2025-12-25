@@ -1,35 +1,37 @@
 {
   "config": {
-    "step": {
-      "user": {
-        "description": "If you need help with the configuration have a look here: https://github.com/ping-localhost/panda-status",
-        "data": {
-          "url": "URL",
-          "name": "Name for the device (optional)"
-        }
-      }
+    "abort": {
+      "already_configured": "This entry is already configured."
     },
     "error": {
       "connection": "Unable to connect to the server.",
+      "invalid_url_format": "Enter a WebSocket URL ending with /ws.",
       "unknown": "Unknown error occurred."
     },
-    "abort": {
-      "already_configured": "This entry is already configured."
+    "step": {
+      "user": {
+        "data": {
+          "name": "Name for the device (optional)",
+          "url": "URL"
+        },
+        "description": "Please make sure to enter the URL as `ws://192.168.0.33/ws`."
+      }
     }
   },
   "options": {
-    "step": {
-      "init": {
-        "description": "If you need help with the configuration have a look here: https://github.com/ping-localhost/panda-status",
-        "data": {
-          "url": "URL",
-          "name": "Name for the device (optional)"
-        }
-      }
-    },
     "error": {
       "connection": "Unable to connect to the server.",
+      "invalid_url_format": "Enter a WebSocket URL ending with /ws.",
       "unknown": "Unknown error occurred."
+    },
+    "step": {
+      "init": {
+        "data": {
+          "name": "Name for the device (optional)",
+          "url": "URL"
+        },
+        "description": "Please make sure to enter the URL as `ws://192.168.0.33/ws`."
+      }
     }
   },
   "system_health": {
