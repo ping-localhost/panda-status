@@ -23,39 +23,45 @@ Pull requests are the best way to propose changes to the codebase.
 
 In short, when you submit code changes, your submissions are understood to be under the same [MIT License](http://choosealicense.com/licenses/mit/) that covers the project. Feel free to contact the maintainers if that's a concern.
 
-## Report bugs using Github's [issues](../../issues)
+## Development
 
-GitHub issues are used to track public bugs.
-Report a bug by [opening a new issue](../../issues/new/choose); it's that easy!
+The easiest way to get started with development is to use Visual Studio Code with [devcontainers](https://code.visualstudio.com/docs/devcontainers/containers). This approach creates a preconfigured development environment with the necessary tools
 
-## Write bug reports with detail, background, and sample code
+You can follow the [official Home Assistant guide](https://developers.home-assistant.io/docs/setup_devcontainer_environment/) for the initial setup.
 
-**Great Bug Reports** tend to have:
+Below is a single, consolidated version of the two text fragments, with consistent structure, corrected numbering, and the repository URL set to `https://github.com/ping-localhost/panda-status`.
 
-- A quick summary and/or background
-- Steps to reproduce
-  - Be specific!
-  - Give sample code if you can.
-- What you expected would happen
-- What actually happens
-- Notes (possibly including why you think this might be happening, or stuff you tried that didn't work)
+### Getting ready
 
-People *love* thorough bug reports. I'm not even kidding.
+1. Clone the repository to a local directory on your computer:
+   ```shell
+   cd $HOME
+   git clone https://github.com/ping-localhost/panda-status
+   ```
+3. Change into the directory of your fork and start Visual Studio Code from there:
 
-## Use a Consistent Coding Style
+   ```shell
+   cd panda-status
+   code .
+   ```
+4. Visual Studio Code will automatically detect the devcontainer and prompt you to **Reopen in Container** (bottom-right corner). Click this option.
+   <p class='img'>
+     <img src='https://developers.home-assistant.io/img/en/development/reopen_in_container.png' />
+   </p>
+5. Confirm that the project is opened inside the devcontainer.
+6. Run the setup script:
+   ```shell
+   ./scripts/setup
+   ```
 
-Use [black](https://github.com/ambv/black) to make sure the code follows the style.
+   This step will:
 
-## Test your code modification
-
-This custom component is based on [panda_status template](https://github.com/ping-localhost/panda-status).
-
-It comes with development environment in a container, easy to launch
-if you use Visual Studio Code. With this container you will have a stand alone
-Home Assistant instance running and already configured with the included
-[`configuration.yaml`](./config/configuration.yaml)
-file.
-
-## License
-
-By contributing, you agree that your contributions will be licensed under its MIT License.
+   * Install `uv` if it is not already installed,
+   * Create a virtual environment if needed,
+   * Activate the environment, and
+   * Install all required dependencies.
+7. Start the development environment by running:
+   ```shell
+   ./scripts/develop
+   ```
+8. Home Assistant will then be available with this custom component at: `http://localhost:8123/`.
