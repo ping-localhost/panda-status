@@ -62,8 +62,9 @@ class PandaStatusWebSocket:
 
         """
         try:
-            async with self._session as websocket:
-                data = json.loads(await websocket.recv())
+            async with asyncio.timeout(1):
+                async with self._session as websocket:
+                    data = json.loads(await websocket.recv())
         except TimeoutError as e:
             msg = f"Timeout error getting data - {e}"
             raise PandaStatusWebsocketTimeoutError(msg) from e
@@ -92,9 +93,10 @@ class PandaStatusWebSocket:
         """
         try:
             _LOGGER.debug("Sending payload: %s", payload)
-            async with asyncio.timeout(1) and self._session as websocket:
-                await websocket.send(payload)
-                _LOGGER.debug("Payload sent: %s", payload)
+            async with asyncio.timeout(1):
+                async with self._session as websocket:
+                    await websocket.send(payload)
+                    _LOGGER.debug("Payload sent: %s", payload)
         except TimeoutError as e:
             msg = f"Timeout error sending payload - {e}"
             raise PandaStatusWebsocketCommunicationError(msg) from e

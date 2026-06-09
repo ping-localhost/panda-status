@@ -6,11 +6,11 @@ from typing import Any
 
 import voluptuous as vol
 
-from custom_components.panda_status import const, tools
 from homeassistant.config_entries import ConfigFlow, ConfigFlowResult
 from homeassistant.const import CONF_NAME, CONF_URL
 from homeassistant.helpers import selector
 
+from . import const, tools
 from .const import DOMAIN, LOGGER
 from .websocket import PandaStatusWebsocketCommunicationError, PandaStatusWebsocketError
 
@@ -41,16 +41,15 @@ class PandaStatusFlowHandler(ConfigFlow, domain=DOMAIN):
                     LOGGER.exception(exception)
                     errors["base"] = "unknown"
                 else:
-                    await self._async_handle_discovery_without_unique_id()
+                    await self.async_set_unique_id(url)
+                    self._abort_if_unique_id_configured()
 
-                    printer_name = tools.get_printer_name(initial_data=initial_data)
                     device_name = user_input.get(CONF_NAME) or tools.get_device_name(
                         initial_data=initial_data
                     )
 
                     return self.async_create_entry(
                         title=device_name,
-                        description=f"Panda status for {printer_name}",
                         data={
                             CONF_URL: url,
                             CONF_NAME: device_name,

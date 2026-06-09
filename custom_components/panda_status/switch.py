@@ -79,6 +79,11 @@ class PandaStatusAPSwitch(PandaStatusEntity, SwitchEntity):
         self.entity_description = entity_description
         self._attr_is_on = self._get_state_from_data()
 
+    @callback
+    def _handle_coordinator_update(self) -> None:
+        self._attr_is_on = self._get_state_from_data()
+        self.async_write_ha_state()
+
     def _get_state_from_data(self) -> bool | None:
         """Get the current state from coordinator data."""
         last_msg = tools.extract_value(self.coordinator.data, "ap.on")

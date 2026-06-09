@@ -40,6 +40,7 @@ class PandaStatusEntity(CoordinatorEntity[PandaStatusDataUpdateCoordinator]):
             },
         )
 
-        self._attr_unique_id = (
-            f"{DOMAIN}_{coordinator.config_entry.unique_id}_{entity_description.key}"
+        entry_identifier = (
+            coordinator.config_entry.unique_id or coordinator.config_entry.entry_id
         )
+        self._attr_unique_id = f"{DOMAIN}_{entry_identifier}_{entity_description.key}"
