@@ -5,7 +5,8 @@ from urllib.parse import urlparse
 
 import voluptuous as vol
 
-from custom_components.panda_status import PandaStatusWebSocket, const
+from . import const
+from .websocket import PandaStatusWebSocket
 
 
 def extract_value(data: dict, dotted_key: str) -> Any:

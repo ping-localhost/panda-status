@@ -12,6 +12,7 @@ from custom_components.panda_status.data import PandaStatusConfigEntry
 from custom_components.panda_status.entity import PandaStatusEntity
 from homeassistant.components.select import SelectEntity, SelectEntityDescription
 from homeassistant.const import EntityCategory
+from homeassistant.core import callback
 
 if TYPE_CHECKING:
     from homeassistant.core import HomeAssistant
@@ -55,15 +56,28 @@ class LightEffectMode(Enum):
             cls.H2D: "H2D",
         }
 
+    @property
+    def display_name(self) -> str:
+        """Return the display name for this LightEffectMode."""
+        return self.display_names().get(self, self.name)
+
     @classmethod
-    def name(cls, value: LightEffectMode) -> str:
-        """Return the display name for a given LightEffectMode."""
-        return cls.display_names().get(value, str(value.name))
+    def from_display_name(cls, value: str) -> LightEffectMode:
+        """Return the LightEffectMode corresponding to a display name."""
+        for mode, display_name in cls.display_names().items():
+            if display_name.lower() == value.lower():
+                return mode
+
+        _LOGGER.warning(
+            "Display name %s does not match any LightEffectMode, defaulting to MUSIC",
+            value,
+        )
+        return cls.MUSIC
 
     @classmethod
     def names(cls) -> list[str]:
         """Return a list of display names for each LightEffectMode."""
-        return [cls.display_names()[mode] for mode in cls]
+        return [mode.display_name for mode in cls]
 
 
 async def async_setup_entry(
@@ -71,7 +85,7 @@ async def async_setup_entry(
     entry: PandaStatusConfigEntry,
     async_add_entities: AddEntitiesCallback,
 ) -> None:
-    """Set up the panda_status switch platform."""
+    """Set up the panda_status select platform."""
     coordinator = entry.runtime_data.coordinator
     async_add_entities(
         [
@@ -116,15 +130,20 @@ class LightEffectSelect(PandaStatusEntity, SelectEntity):
     @property
     def current_option(self) -> str:
         """Return the currently selected light effect mode."""
-        return LightEffectMode.name(self._current_mode)
+        return self._current_mode.display_name
 
     async def async_select_option(self, option: str) -> None:
         """Change the selected light effect mode."""
-        mode = LightEffectMode[option.upper()]
+        mode = LightEffectMode.from_display_name(option)
         await self.coordinator.config_entry.runtime_data.client.async_send(
             '{"settings":{"rgb_info_mode":' + str(mode.value) + "}}"
         )
         self._current_mode = mode
+        self.async_write_ha_state()
+
+    @callback
+    def _handle_coordinator_update(self) -> None:
+        self._current_mode = self._get_state_from_data()
         self.async_write_ha_state()
 
     def _get_state_from_data(self) -> LightEffectMode:

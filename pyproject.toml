@@ -1,14 +1,14 @@
 [project]
 name = "panda_status"
-version = "1.3.1"
+version = "2.0.0"
 requires-python = ">=3.13.2"
 dependencies = [
     "colorlog",
     "ffmpeg",
     "ha-ffmpeg",
     "hassil",
-    "home-assistant-intents==2025.9.3",
-    "homeassistant==2025.8.1",
+    "home-assistant-intents==2026.6.1",
+    "homeassistant==2026.2.3",
     "mutagen",
     "numpy",
     "pip>=25.2",
