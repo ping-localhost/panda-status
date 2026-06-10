@@ -11,7 +11,7 @@ dependencies = [
     "homeassistant==2026.2.3",
     "mutagen",
     "numpy",
-    "pip>=25.2",
+    "pip>=26.1.2",
     "pymicro-vad",
     "pyspeex-noise",
     "PyTurboJPEG",
