@@ -15,6 +15,6 @@ dependencies = [
     "pymicro-vad",
     "pyspeex-noise",
     "PyTurboJPEG",
-    "ruff>=0.12.12",
+    "ruff>=0.15.17",
     "websockets",
 ]
