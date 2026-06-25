@@ -7,7 +7,7 @@ dependencies = [
     "ffmpeg",
     "ha-ffmpeg",
     "hassil",
-    "home-assistant-intents==2026.6.1",
+    "home-assistant-intents==2026.6.24",
     "homeassistant==2026.2.3",
     "mutagen",
     "numpy",
