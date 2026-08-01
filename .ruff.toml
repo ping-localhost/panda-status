@@ -15,6 +15,7 @@ ignore = [
     "EXE002", # incompatible with Windows
     "COM812", # incompatible with formatter
     "ISC001", # incompatible with formatter
+    "CPY001", # copyright comment block
 ]
 
 [lint.flake8-pytest-style]

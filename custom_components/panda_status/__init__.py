@@ -7,6 +7,7 @@ https://github.com/ping-localhost/panda-status
 
 from __future__ import annotations
 
+from datetime import timedelta
 from typing import TYPE_CHECKING
 
 from homeassistant.const import CONF_URL, Platform
@@ -25,6 +26,7 @@ PLATFORMS: list[Platform] = [
     Platform.SENSOR,
     Platform.SELECT,
     Platform.SWITCH,
+    Platform.LIGHT,
 ]
 
 
@@ -38,6 +40,12 @@ async def async_setup_entry(
         hass=hass,
         logger=LOGGER,
         name=DOMAIN,
+        # Real polling, previously unset (see PR history). 30s turned out
+        # too aggressive for the device's embedded WS stack when combined
+        # with the 1s-per-connection timeout, causing frequent unavailable
+        # flaps - 60s plus the more forgiving timeout and single retry in
+        # the coordinator gives it more breathing room.
+        update_interval=timedelta(seconds=60),
     )
     entry.runtime_data = PandaStatusData(
         client=PandaStatusWebSocket(url=entry.data[CONF_URL], session=None),

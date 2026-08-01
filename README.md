@@ -1,5 +1,6 @@
 <h1 align="center" style="display: block; font-size: 2.5em; font-weight: bold; margin-block-start: 1em; margin-block-end: 1em;">
-<a name="logo" href="https://github.com/ping-localhost/panda-status"><img align="center" src="https://i.imgur.com/bo7pxoH.png" alt="Panda Status" style="width:100%;height:100%"/></a>
+<a name="logo" href="https://github.com/BambamNZ/panda-status"><img width="500" height="500" alt="Panda_Aura_A1-6" src="https://github.com/user-attachments/assets/f5f1d966-ceb6-44a7-8495-edb5fceca019" />
+</a>
   <br /><br /><strong>Panda Status</strong>
 </h1>
 
@@ -7,15 +8,15 @@ _Control your BigTreeTech Panda Status via Home Assistant_
 
 [![HACS](https://img.shields.io/badge/HACS-Custom-orange.svg?style=for-the-badge)](https://github.com/hacs/integration)
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/ping-localhost/panda-status?style=for-the-badge)
-![GitHub Release Date](https://img.shields.io/github/release-date/ping-localhost/panda-status?style=for-the-badge)
+![GitHub Release Date](https://img.shields.io/github/release-date/BambamNZ/panda-status?style=for-the-badge)
 
 ---
 
 ## Overview
 
-**Panda Status** is a Home Assistant custom integration for monitoring and controlling your BigTreeTech Panda Status device. It connects via WebSocket, parses messages, and exposes device data and controls to Home Assistant.
+**Panda Status** custom Home Assistant integration for monitoring and controlling your BigTreeTech Panda Status device. Connection via WebSocket, parses messages, and exposes device data and controls to Home Assistant.
 
-**Tested with**: V1.0.1
+**Tested with**: V1.0.0 Panda Aura A1 / A1 Mini
 
 ---
 
@@ -23,8 +24,8 @@ _Control your BigTreeTech Panda Status via Home Assistant_
 
 <table>
   <tr>
-    <td><a href="https://github.com/ping-localhost/panda-status/actions/workflows/lint.yml" alt="lint"><img src="https://github.com/ping-localhost/panda-status/actions/workflows/lint.yml/badge.svg" alt="lint build"/></a></td>
-    <td><a href="https://github.com/ping-localhost/panda-status/actions/workflows/validate.yml" alt="MS Build"><img src="https://github.com/ping-localhost/panda-status/actions/workflows/validate.yml/badge.svg" alt="MS Build"/></a></td>
+    <td><a href="https://github.com/BambamNZ/panda-status/actions/workflows/lint.yml" alt="lint"><img src="https://github.com/BambamNZ/panda-status/actions/workflows/lint.yml/badge.svg" alt="lint build"/></a></td>
+    <td><a href="https://github.com/BambamNZ/panda-status/actions/workflows/validate.yml" alt="MS Build"><img src="https://github.com/BambamNZ/panda-status/actions/workflows/validate.yml/badge.svg" alt="MS Build"/></a></td>
   </tr>
 </table>
 
@@ -47,8 +48,12 @@ _Control your BigTreeTech Panda Status via Home Assistant_
 ### Switches
 
 - **WiFi AP** - Allows you to enable/disable the AP.
-- **RGB Idle Light** - Allows you enable/disable the idle light
-  - It just sets the brightness to 0% or 100%.
+
+### Light
+
+- **RGB Idle Light** - Allows control the idle light
+  - **Changes from original integration:**
+  - Idle light as an entity in HA, with expected light controls
 
 ### Select Entities
 
@@ -62,7 +67,6 @@ _Control your BigTreeTech Panda Status via Home Assistant_
 2. [Add this repo to your HACS custom repositories](https://hacs.xyz/docs/faq/custom_repositories).
 3. Search for `Panda Status` and install.
 4. Restart Home Assistant.
-5. Set up via the configuration flow (YAML is not supported).
 
 ## Configuration
 
@@ -75,7 +79,7 @@ After installation, add the integration via Home Assistant UI:
 
 ## Support & Issues
 
-For issues or feature requests, open an [issue on GitHub](https://github.com/ping-localhost/panda-status/issues).
+For issues or feature requests, open an [issue on GitHub](https://github.com/BambamNZ/panda-status/issues).
 
 ## License
 

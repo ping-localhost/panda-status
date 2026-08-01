@@ -45,16 +45,6 @@ async def async_setup_entry(
                     device_class=SwitchDeviceClass.SWITCH,
                 ),
             ),
-            PandaStatusRGBIdleSwitch(
-                coordinator=coordinator,
-                entity_description=SwitchEntityDescription(
-                    key="rgb_idle_light",
-                    name="RGB Idle Light",
-                    icon="mdi:lightbulb",
-                    entity_category=EntityCategory.CONFIG,
-                    device_class=SwitchDeviceClass.SWITCH,
-                ),
-            ),
         ]
     )
 
@@ -102,56 +92,5 @@ class PandaStatusAPSwitch(PandaStatusEntity, SwitchEntity):
         """Turn off the AP."""
         await self.coordinator.config_entry.runtime_data.client.async_send(
             '{"ap":{"on":0}}'
-        )
-        await self.coordinator.async_request_refresh()
-
-
-class PandaStatusRGBIdleSwitch(PandaStatusEntity, SwitchEntity):
-    """Representation of the RGB Idle Light Switch."""
-
-    def __init__(
-        self,
-        coordinator: PandaStatusDataUpdateCoordinator,
-        entity_description: SwitchEntityDescription,
-    ) -> None:
-        """
-        Initialize the RGB Idle Light Switch entity.
-
-        Args:
-            coordinator: The data update coordinator for panda_status.
-            entity_description: Description of the switch entity.
-
-        """
-        super().__init__(coordinator, entity_description)
-        self.entity_description = entity_description
-        self._attr_is_on = self._get_state_from_data()
-
-    def _get_state_from_data(self) -> bool | None:
-        """Get the current state from coordinator data."""
-        last_msg = self.coordinator.data
-        if last_msg and "settings" in last_msg:
-            list2 = last_msg["settings"].get("list2", [])
-            if len(list2) > 1:
-                return list2[1].get("brightness", 0) > 0
-            return False
-        return None
-
-    @callback
-    def _handle_coordinator_update(self) -> None:
-        """Handle updated data from the coordinator."""
-        self._attr_is_on = self._get_state_from_data()
-        self.async_write_ha_state()
-
-    async def async_turn_on(self, **kwargs: Any) -> None:  # noqa: ARG002
-        """Turn on the RGB Idle Light."""
-        await self.coordinator.config_entry.runtime_data.client.async_send(
-            '{"settings":{"rgb_info_brightness":"100"}}'
-        )
-        await self.coordinator.async_request_refresh()
-
-    async def async_turn_off(self, **kwargs: Any) -> None:  # noqa: ARG002
-        """Turn off the RGB Idle Light."""
-        await self.coordinator.config_entry.runtime_data.client.async_send(
-            '{"settings":{"rgb_info_brightness":"0"}}'
         )
         await self.coordinator.async_request_refresh()

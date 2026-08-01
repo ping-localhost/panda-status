@@ -62,7 +62,12 @@ class PandaStatusWebSocket:
 
         """
         try:
-            async with asyncio.timeout(1):
+            # 1 second was workable when this connection only ever happened
+            # right after a user action; now that the coordinator polls
+            # periodically, that budget is regularly too tight for the
+            # device's own connect+respond time and was causing frequent
+            # false-negative "unavailable" flaps.
+            async with asyncio.timeout(5):
                 async with self._session as websocket:
                     data = json.loads(await websocket.recv())
         except TimeoutError as e:
@@ -93,7 +98,7 @@ class PandaStatusWebSocket:
         """
         try:
             _LOGGER.debug("Sending payload: %s", payload)
-            async with asyncio.timeout(1):
+            async with asyncio.timeout(5):
                 async with self._session as websocket:
                     await websocket.send(payload)
                     _LOGGER.debug("Payload sent: %s", payload)
